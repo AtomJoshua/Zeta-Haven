@@ -17,7 +17,7 @@ export default function Apartments() {
     price: "₦250,000 / night",
     images: [bedroom, apt1, dining, aptvideo],
     description:
-      "A bright, coastal-inspired apartment in the heart of Asokoro — perfect for both business and leisure travelers. Enjoy a serene space with modern comforts.",
+      "In the luxury centre of Asokoro, with proximity to great spots for networking with Abuja elites, this spacious 2-bedroom apartment offers a blend of comfort and style, perfect for both relaxation and work. Enjoy modern amenities, a fully equipped kitchen, and a cozy living area designed for your convenience.",
     amenities: [
       { icon: <BedDouble size={18} />, label: "2 Bedrooms" },
       { icon: <Bath size={18} />, label: "Private Baths" },
