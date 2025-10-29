@@ -20,7 +20,7 @@ export default function Hero() {
         className="relative z-10 text-center px-4"
       >
         <h1 className="text-5xl md:text-6xl font-playfair mb-4">
-          Zeta Limited Suites
+          Zeta Haven Apartments
         </h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto">
           A peaceful retreat where elegance meets comfort. Your home away from home.
