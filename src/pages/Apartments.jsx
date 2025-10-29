@@ -26,15 +26,15 @@ export default function Apartments() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE]">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-playfair text-[#1E3A8A] mb-10 text-center">
+    <section className="py-12 sm:py-16 bg-linear-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] overflow-x-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-playfair text-[#1E3A8A] mb-8 sm:mb-10 text-center">
           Our Apartments
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 bg-white shadow-xl rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 bg-white shadow-xl rounded-2xl overflow-hidden">
           {/* Image / Video Carousel */}
-          <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[480px]">
+          <div className="relative w-full h-60 sm:h-80 md:h-[420px]">
             <Swiper
               modules={[Autoplay, Pagination]}
               autoplay={{ delay: 4000, disableOnInteraction: false }}
@@ -67,15 +67,19 @@ export default function Apartments() {
           </div>
 
           {/* Apartment Info */}
-          <div className="p-6 sm:p-8 flex flex-col justify-center">
-            <h3 className="text-2xl font-semibold text-[#1E3A8A] mb-2">
+          <div className="p-5 sm:p-8 flex flex-col justify-center text-center md:text-left">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E3A8A] mb-2">
               {apartment.name}
             </h3>
-            <p className="text-[#2563EB] mb-3 font-medium">{apartment.price}</p>
-            <p className="text-gray-600 mb-5">{apartment.description}</p>
+            <p className="text-[#2563EB] mb-3 font-medium text-lg">
+              {apartment.price}
+            </p>
+            <p className="text-gray-600 mb-5 leading-relaxed text-sm sm:text-base">
+              {apartment.description}
+            </p>
 
             {/* Amenities */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 mb-8">
+            <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 mb-8">
               {apartment.amenities.map((a, index) => (
                 <div
                   key={index}
@@ -89,7 +93,7 @@ export default function Apartments() {
 
             <a
               href="/request"
-              className="inline-block text-center bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white px-6 py-3 rounded-full font-medium shadow-lg transition-all w-full sm:w-auto"
+              className="inline-block text-center bg-linear-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white px-6 py-3 rounded-full font-medium shadow-lg transition-all w-full sm:w-auto"
             >
               Book This Suite
             </a>

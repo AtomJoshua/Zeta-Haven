@@ -28,7 +28,7 @@ export default function Hero() {
 
         <Link
           to="/apartments"
-          className="bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] transition-all px-8 py-3 rounded-full text-white font-semibold shadow-lg"
+          className="bg-linear-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] transition-all px-8 py-3 rounded-full text-white font-semibold shadow-lg"
         >
           Book Now
         </Link>
