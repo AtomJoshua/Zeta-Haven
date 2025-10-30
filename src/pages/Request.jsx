@@ -24,6 +24,12 @@ export default function Request() {
       )
       .then(
         () => {
+          emailjs.sendForm(
+            "service_0bv8r28",
+            "template_rx7kykj",
+            form.current,
+            "21PZYOtFePiNDkFUH"
+          );
           setSent(true);
           setLoading(false);
           form.current.reset();
@@ -49,7 +55,7 @@ export default function Request() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] py-16 px-4">
+    <section className="min-h-screen bg-linear-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] py-16 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 sm:p-10">
         <h2 className="text-3xl font-playfair text-center text-[#1E3A8A] mb-6">
           Booking Request
@@ -161,11 +167,25 @@ export default function Request() {
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2563EB] transition"
             ></textarea>
 
+            {/* Caution Fee Agreement */}
+            <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 p-4 rounded-lg">
+              <input
+                type="checkbox"
+                id="cautionFee"
+                required
+                className="mt-1 w-4 h-4 accent-[#2563EB] cursor-pointer"
+              />
+              <label htmlFor="cautionFee" className="text-sm text-gray-700 leading-relaxed">
+                I understand that a <span className="font-semibold text-[#1E3A8A]">50% refundable caution fee </span>
+                is required before my booking is confirmed.
+              </label>
+            </div>
+
             {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white py-3 rounded-lg font-medium shadow-lg transition-all"
+              className="w-full bg-linear-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white py-3 rounded-lg font-medium shadow-lg transition-all"
             >
               {loading ? "Sending..." : "Submit Request"}
             </button>
@@ -180,7 +200,7 @@ export default function Request() {
             </p>
             <button
               onClick={() => setSent(false)}
-              className="mt-6 bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white px-6 py-3 rounded-lg shadow-md transition-all"
+              className="mt-6 bg-linear-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white px-6 py-3 rounded-lg shadow-md transition-all"
             >
               Send Another Request
             </button>
