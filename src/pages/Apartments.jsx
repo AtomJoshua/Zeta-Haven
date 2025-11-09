@@ -28,7 +28,7 @@ export default function Apartments() {
   return (
     <section className="py-12 sm:py-16 bg-linear-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-playfair text-[#1E3A8A] mb-8 sm:mb-10 text-center">
+        <h2 className="font-dancing text-3xl font-playfair text-[#1E3A8A] mb-8 sm:mb-10 text-center">
           Our Apartments
         </h2>
 

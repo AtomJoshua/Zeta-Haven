@@ -10,7 +10,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <h1 className="text-2xl font-playfair text-[#1E3A8A]">
+        <h1 className="font-dancing text-2xl font-playfair text-[#1E3A8A]">
           Zeta Haven Apartments
         </h1>
 

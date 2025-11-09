@@ -1,1 +1,17 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
+
+
+@layer utilities {
+  .font-allura {
+    font-family: 'Allura', cursive;
+  }
+  .font-dancing{
+    font-family: 'Dancing Script', cursive;
+  }
+  .font-cookie{
+    font-family: 'Cookie', cursive;
+  }
+}

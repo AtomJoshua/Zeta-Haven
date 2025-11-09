@@ -19,10 +19,10 @@ export default function Hero() {
         transition={{ duration: 1 }}
         className="relative z-10 text-center px-4"
       >
-        <h1 className="text-5xl md:text-6xl font-playfair mb-4">
+        <h1 className="font-allura text-7xl md:text-8xl font-playfair mb-4">
           Zeta Haven Apartments
         </h1>
-        <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto">
+        <p className="text-l md:text-xl text-gray-200 mb-8 max-w-xl mx-auto">
           A peaceful retreat where elegance meets comfort. Your home away from home.
         </p>
 

@@ -19,14 +19,14 @@ export default function Home() {
       {/* Book With Confidence Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h3 className="text-2xl font-semibold text-[#2A7FBA] mb-12">
+          <h3 className="font-allura text-3xl font-semibold text-[#2A7FBA] mb-12">
             Book with Confidence
           </h3>
 
           <div className="grid md:grid-cols-3 gap-10">
             {/* Amenities */}
             <div className="flex flex-col items-center p-6 bg-[#E8F1F8] rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <div className="p-4 bg-gradient-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
+              <div className="p-4 bg-linear-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
                 <BedDouble size={30} />
               </div>
               <h4 className="text-lg font-semibold mb-2 text-gray-800">
@@ -39,7 +39,7 @@ export default function Home() {
 
             {/* Flexibility */}
             <div className="flex flex-col items-center p-6 bg-[#E8F1F8] rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <div className="p-4 bg-gradient-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
+              <div className="p-4 bg-linear-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
                 <RefreshCcw size={30} />
               </div>
               <h4 className="text-lg font-semibold mb-2 text-gray-800">
@@ -52,7 +52,7 @@ export default function Home() {
 
             {/* Confidence */}
             <div className="flex flex-col items-center p-6 bg-[#E8F1F8] rounded-2xl shadow-sm hover:shadow-md transition-all">
-              <div className="p-4 bg-gradient-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
+              <div className="p-4 bg-linear-to-r from-[#2A7FBA] to-[#6AB1E1] text-white rounded-full mb-4">
                 <ShieldCheck size={30} />
               </div>
               <h4 className="text-lg font-semibold mb-2 text-gray-800">

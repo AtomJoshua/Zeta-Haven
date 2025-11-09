@@ -57,7 +57,7 @@ export default function Request() {
   return (
     <section className="min-h-screen bg-linear-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] py-16 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 sm:p-10">
-        <h2 className="text-3xl font-playfair text-center text-[#1E3A8A] mb-6">
+        <h2 className="font-dancing text-3xl font-playfair text-center text-[#1E3A8A] mb-6">
           Booking Request
         </h2>
         <p className="text-gray-600 text-center mb-8">
