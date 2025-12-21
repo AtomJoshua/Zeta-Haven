@@ -1,104 +1,162 @@
-import { useRef } from "react";
-import { Bath, BedDouble, Car } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { useState } from "react";
+import { MapPin, ArrowRight, X, Info } from "lucide-react"; 
+
+// Adjust these paths if needed based on your folder structure
 import bedroom from "../media/bedroom.jpg";
-import dining from "../media/dining.jpg";
+import livingroom from "../media/apt1.jpg";
 import apt1 from "../media/apt1.jpg";
-import aptvideo from "../media/aptvideo.mp4";
+import kitchen from "../media/dining.jpg";
 
-export default function Apartments() {
-  const swiperRef = useRef(null);
+export default function VirtualTourSection() {
+  
+  const apartments = [
+    {
+      id: 1,
+      name: "Deluxe Cozy Apartment",
+      location: "84 Kwame Nkrumah Crescent, Asokoro, Abuja.",
+      price: "From ₦150,000",
+      description: "A spacious 2-bedroom suite in the heart of Asokoro. Ideal for networking with Abuja elites, featuring a fully equipped kitchen and a stylish, work-friendly living area.",
+      image: apt1, 
+    },
+    // {
+    //   id: 2,
+    //   name: "Royal Asokoro Loft",
+    //   location: "Asokoro, Abuja",
+    //   price: "₦250,000 / night",
+    //   description: "Luxury defined. This loft features a private cinema, italian marble finishings, and 24/7 concierge.",
+    //   image: livingroom,
+    // },
+    // {
+    //   id: 3,
+    //   name: "Victoria Island Executive",
+    //   location: "Victoria Island, Lagos",
+    //   price: "₦120,000 / night",
+    //   description: "Perfect for business travelers. High-speed fiber internet, ergonomic workspace, and city views.",
+    //   image: kitchen,
+    // },
+    // {
+    //   id: 4,
+    //   name: "Banana Island Haven",
+    //   location: "Ikoyi, Lagos",
+    //   price: "₦450,000 / night",
+    //   description: "Exclusive privacy. Featuring a private pool, 4 bedrooms, and direct access to the waterfront.",
+    //   image: bedroom,
+    // },
+  ];
 
-  const apartment = {
-    name: "Deluxe Cozy Apartment • Asokoro",
-    price: "₦250,000 / night",
-    images: [bedroom, apt1, dining, aptvideo],
-    description:
-      "In the luxury centre of Asokoro, with proximity to great spots for networking with Abuja elites, this spacious 2-bedroom apartment offers a blend of comfort and style, perfect for both relaxation and work. Enjoy modern amenities, a fully equipped kitchen, and a cozy living area designed for your convenience.",
-    amenities: [
-      { icon: <BedDouble size={18} />, label: "2 Bedrooms" },
-      { icon: <Bath size={18} />, label: "Private Baths" },
-      { icon: <Car size={18} />, label: "Free Parking" },
-    ],
-  };
+  const [activeId, setActiveId] = useState(apartments[0].id);
+  const [showInfo, setShowInfo] = useState(true);
+
+  const activeApartment = apartments.find((apt) => apt.id === activeId);
 
   return (
-    <section className="py-12 sm:py-16 bg-linear-to-b from-[#E0F2FE] via-[#F8FAFC] to-[#E0F2FE] overflow-x-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-dancing text-3xl font-playfair text-[#1E3A8A] mb-8 sm:mb-10 text-center">
-          Our Apartments
+    <section className="w-full bg-linear-to-b from-[#E0F2FE] to-white pt-16 pb-24">
+      
+      <div className="max-w-5xl mx-auto text-center mb-12 px-4">
+        <h2 className="font-playfair font-dancing text-3xl md:text-[56px] leading-tight text-[#1E3A8A]">
+          Explore Our Available Apartments
         </h2>
+        <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+          Click an image to view apartment details.
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 bg-white shadow-xl rounded-2xl overflow-hidden">
-          {/* Image / Video Carousel */}
-          <div className="relative w-full h-60 sm:h-80 md:h-[420px]">
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
-              pagination={{ clickable: true }}
-              loop={true}
-              className="w-full h-full"
-              onSwiper={(swiper) => (swiperRef.current = swiper)}
-            >
-              {apartment.images.map((media, index) => (
-                <SwiperSlide key={index}>
-                  {media.endsWith(".mp4") ? (
-                    <video
-                      src={media}
-                      controls
-                      className="w-full h-full object-cover"
-                      onPlay={() => swiperRef.current?.autoplay.stop()}
-                      onPause={() => swiperRef.current?.autoplay.start()}
-                      onEnded={() => swiperRef.current?.autoplay.start()}
-                    />
-                  ) : (
-                    <img
-                      src={media}
-                      alt={`Apartment view ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+      <div className="max-w-[1400px] mx-auto px-4">
+        
+        <div className="relative group w-full h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500">
+          <img
+            src={activeApartment.image}
+            alt={activeApartment.name}
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            onClick={() => setShowInfo(!showInfo)}
+          />
 
-          {/* Apartment Info */}
-          <div className="p-5 sm:p-8 flex flex-col justify-center text-center md:text-left">
-            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E3A8A] mb-2">
-              {apartment.name}
-            </h3>
-            <p className="text-[#2563EB] mb-3 font-medium text-lg">
-              {apartment.price}
-            </p>
-            <p className="text-gray-600 mb-5 leading-relaxed text-sm sm:text-base">
-              {apartment.description}
-            </p>
-
-            {/* Amenities */}
-            <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 mb-8">
-              {apartment.amenities.map((a, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 text-sm bg-blue-50 px-3 py-2 rounded-full text-[#1E3A8A]"
-                >
-                  {a.icon}
-                  <span>{a.label}</span>
-                </div>
-              ))}
+          <div 
+            className={`
+              absolute bottom-0 left-0 right-0 md:right-auto md:bottom-8 md:left-8 md:w-[450px]
+              bg-white/95 backdrop-blur-md p-6 md:rounded-xl shadow-lg border-t-4 border-[#1E3A8A]
+              transition-all duration-500 ease-in-out transform
+              ${showInfo ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}
+            `}
+          >
+            <div className="flex justify-between items-start mb-2">
+              <span className="bg-[#E0F2FE] text-[#1E3A8A] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                Featured
+              </span>
+              <button onClick={() => setShowInfo(false)} className="text-gray-400 hover:text-red-500">
+                <X size={18} />
+              </button>
             </div>
 
-            <a
-              href="/request"
-              className="inline-block text-center bg-linear-to-r from-[#1E3A8A] to-[#2563EB] hover:from-[#2563EB] hover:to-[#1E3A8A] text-white px-6 py-3 rounded-full font-medium shadow-lg transition-all w-full sm:w-auto"
+            <h3 className="font-playfair text-2xl text-[#1E3A8A] mb-1">
+              {activeApartment.name}
+            </h3>
+            
+            {/* --- FIX START: CLICKABLE ADDRESS RESTORED --- */}
+            <a 
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeApartment.location)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-gray-500 text-sm mb-3 hover:text-[#1E3A8A] hover:underline transition-colors w-fit group-addr"
             >
-              Book This Suite
+              <MapPin size={14} className="mr-1 group-addr-hover:text-[#1E3A8A]" />
+              {activeApartment.location}
             </a>
+            {/* --- FIX END --- */}
+
+            <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+              {activeApartment.description}
+            </p>
+
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-xl font-bold text-[#1E3A8A]">{activeApartment.price}</span>
+              
+              <a href="/request" className="flex items-center gap-2 text-sm font-semibold text-[#1E3A8A] hover:underline">
+                Book Now <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+          
+          {!showInfo && (
+            <button 
+              onClick={() => setShowInfo(true)}
+              className="absolute bottom-8 left-8 bg-white text-[#1E3A8A] p-3 rounded-full shadow-lg hover:bg-[#E0F2FE] transition"
+            >
+              <Info size={24} />
+            </button>
+          )}
+        </div>
+
+        <div className="mt-8 overflow-x-auto pb-4 scrollbar-hide">
+          <div className="flex gap-4 md:gap-6 md:justify-center min-w-max px-2">
+            {apartments.map((apt) => (
+              <button
+                key={apt.id}
+                onClick={() => {
+                  setActiveId(apt.id);
+                  setShowInfo(true);
+                }}
+                className={`
+                  relative w-[140px] h-[100px] md:w-[200px] md:h-[140px] rounded-xl overflow-hidden cursor-pointer
+                  transition-all duration-300 transform hover:-translate-y-1
+                  ${activeId === apt.id 
+                    ? "ring-4 ring-[#1E3A8A] shadow-xl scale-105" 
+                    : "opacity-70 hover:opacity-100 grayscale hover:grayscale-0"}
+                `}
+              >
+                <img 
+                  src={apt.image} 
+                  alt={apt.name} 
+                  className="w-full h-full object-cover"
+                />
+                {activeId === apt.id && (
+                  <div className="absolute inset-0 bg-[#1E3A8A]/10 mix-blend-multiply" />
+                )}
+              </button>
+            ))}
           </div>
         </div>
+
       </div>
     </section>
   );
