@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "../assets/logo.jpeg";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,10 +10,16 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-        {/* Logo */}
-        <h1 className="font-dancing text-2xl font-playfair text-[#1E3A8A]">
-          Zeta Haven Apartments
-        </h1>
+        <div className="flex items-center gap-3">
+          <img 
+            src={logo} 
+            alt="Zeta Haven Logo" 
+            className="w-10 h-10 object-cover rounded-full" // Adjust w-10 (40px) as needed
+          />
+          <h1 className="font-dancing text-2xl font-playfair text-[#1E3A8A]">
+            Zeta Haven Apartments
+          </h1>
+        </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6 text-[#1E3A8A] font-poppins">
