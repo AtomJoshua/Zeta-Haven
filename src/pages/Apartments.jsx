@@ -1,156 +1,221 @@
 import { useState } from "react";
-import { MapPin, ArrowRight, X, Info } from "lucide-react"; 
+import { MapPin, ArrowRight, X, Info, ChevronLeft, ChevronRight } from "lucide-react"; 
 
-// Adjust these paths if needed based on your folder structure
-import bedroom from "../media/bedroom.jpg";
-import livingroom from "../media/apt1.jpg";
-import apt1 from "../media/apt1.jpg";
-import kitchen from "../media/dining.jpg";
+// Import all available apartment images
+import apt1Main from "../media/living.jpg";
+import bedroomImg from "../media/room2.png";
+import diningImg from "../media/dine.jpg";
+// Add other imports here...
 
-export default function VirtualTourSection() {
+export default function Apartments() {
   
   const apartments = [
     {
       id: 1,
       name: "Deluxe Cozy Apartment",
       location: "84 Kwame Nkrumah Crescent, Asokoro, Abuja.",
-      price: "From ₦150,000",
-      description: "A spacious 2-bedroom suite in the heart of Asokoro. Ideal for networking with Abuja elites, featuring a fully equipped kitchen and a stylish, work-friendly living area.",
-      image: apt1, 
+      options: [
+        { label: "1 Bedroom Access", price: "₦120,000" },
+        { label: "Full 2 Bedroom Suite", price: "₦150,000" }
+      ],
+      images: [apt1Main, bedroomImg, diningImg],
+      description: "A spacious 2-bedroom suite in the heart of Asokoro. Ideal for networking with Abuja elites. The apartment features a fully equipped modern kitchen, a stylish living area perfect for work or relaxation, and luxurious bedding to ensure a restful night's sleep. Enjoy 24/7 power and premium security.",
     },
-    // {
-    //   id: 2,
-    //   name: "Royal Asokoro Loft",
-    //   location: "Asokoro, Abuja",
-    //   price: "₦250,000 / night",
-    //   description: "Luxury defined. This loft features a private cinema, italian marble finishings, and 24/7 concierge.",
-    //   image: livingroom,
-    // },
-    // {
-    //   id: 3,
-    //   name: "Victoria Island Executive",
-    //   location: "Victoria Island, Lagos",
-    //   price: "₦120,000 / night",
-    //   description: "Perfect for business travelers. High-speed fiber internet, ergonomic workspace, and city views.",
-    //   image: kitchen,
-    // },
-    // {
-    //   id: 4,
-    //   name: "Banana Island Haven",
-    //   location: "Ikoyi, Lagos",
-    //   price: "₦450,000 / night",
-    //   description: "Exclusive privacy. Featuring a private pool, 4 bedrooms, and direct access to the waterfront.",
-    //   image: bedroom,
-    // },
+    // Future listings...
   ];
 
   const [activeId, setActiveId] = useState(apartments[0].id);
   const [showInfo, setShowInfo] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const activeApartment = apartments.find((apt) => apt.id === activeId);
 
+  // --- CAROUSEL HANDLERS ---
+  const nextImage = (e) => {
+    e.stopPropagation(); 
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === activeApartment.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? activeApartment.images.length - 1 : prevIndex - 1
+    );
+  };
+  // ---------------------------
+
   return (
-    <section className="w-full bg-linear-to-b from-[#E0F2FE] to-white pt-16 pb-24">
+    <section className="w-full bg-linear-to-b from-[#F0F9FF] to-white pt-16 md:pt-20 pb-20 md:pb-32" id="apartments">
       
-      <div className="max-w-5xl mx-auto text-center mb-12 px-4">
-        <h2 className="font-playfair font-dancing text-3xl md:text-[56px] leading-tight text-[#1E3A8A]">
-          Explore Our Available Apartments
+      <div className="max-w-5xl mx-auto text-center mb-8 md:mb-16 px-4">
+        <h2 className="font-allura text-3xl md:text-[56px] leading-tight text-[#1E3A8A] mb-4 md:mb-6">
+          Explore Our Collections
         </h2>
-        <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-          Click an image to view apartment details.
+        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-light">
+          Discover your perfect stay. Swipe or click arrows to view more photos.
         </p>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4">
         
-        <div className="relative group w-full h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500">
+        {/* MAIN DISPLAY AREA */}
+        <div className="relative group w-full h-[500px] md:h-[700px] rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl md:shadow-2xl bg-gray-100 border border-white/50">
+          
+          {/* The Active Image */}
+          <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none mix-blend-overlay"></div>
           <img
-            src={activeApartment.image}
-            alt={activeApartment.name}
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            src={activeApartment.images[currentImageIndex]}
+            alt={`${activeApartment.name} view ${currentImageIndex + 1}`}
+            className="w-full h-full object-cover object-center transition-transform duration-1000 ease-in-out"
             onClick={() => setShowInfo(!showInfo)}
           />
 
+          {/* --- CAROUSEL CONTROLS --- */}
+          {activeApartment.images.length > 1 && (
+            <>
+              {/* Arrows - Positioned slightly higher on mobile to avoid overlap with card */}
+              <button 
+                onClick={prevImage}
+                className="absolute top-[40%] md:top-1/2 left-4 md:left-6 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/30 active:scale-95"
+              >
+                <ChevronLeft size={24} className="md:w-7 md:h-7" />
+              </button>
+              
+              <button 
+                onClick={nextImage}
+                className="absolute top-[40%] md:top-1/2 right-4 md:right-6 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/30 active:scale-95"
+              >
+                <ChevronRight size={24} className="md:w-7 md:h-7" />
+              </button>
+
+              {/* Dots - Hidden on mobile if info card is open to save space, visible on desktop */}
+              <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3 z-20 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 transition-opacity duration-300 ${showInfo ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}>
+                {activeApartment.images.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ease-out ${index === currentImageIndex ? 'w-6 md:w-8 bg-white' : 'w-1.5 md:w-2 bg-white/50'}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+
+          {/* --- INFO OVERLAY CARD (Bottom Sheet Style) --- */}
           <div 
             className={`
-              absolute bottom-0 left-0 right-0 md:right-auto md:bottom-8 md:left-8 md:w-[450px]
-              bg-white/95 backdrop-blur-md p-6 md:rounded-xl shadow-lg border-t-4 border-[#1E3A8A]
-              transition-all duration-500 ease-in-out transform
-              ${showInfo ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}
+              absolute bottom-0 left-0 right-0 
+              md:top-0 md:bottom-0 md:left-auto md:right-0 md:w-[480px] md:h-auto
+              
+              /* Mobile Specific: Max height 60% so user sees image top. Scrollable. */
+              max-h-[60%] md:max-h-none overflow-y-auto md:overflow-visible
+              
+              bg-white/90 md:bg-white/80 backdrop-blur-xl 
+              p-6 md:p-10 
+              shadow-[0_-10px_30px_-5px_rgba(0,0,0,0.2)] md:shadow-[-10px_0_30px_-15px_rgba(0,0,0,0.3)]
+              border-t md:border-t-0 md:border-l border-white/50 
+              
+              transition-all duration-500 ease-in-out transform z-30
+              flex flex-col justify-start md:justify-center
+              
+              ${showInfo ? "translate-y-0 md:translate-x-0 opacity-100" : "translate-y-full md:translate-y-0 md:translate-x-full opacity-0 pointer-events-none"}
             `}
           >
-            <div className="flex justify-between items-start mb-2">
-              <span className="bg-[#E0F2FE] text-[#1E3A8A] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                Featured
+            {/* Header: Featured Badge & Close Button */}
+            <div className="flex justify-between items-center mb-4 md:mb-6 shrink-0">
+              <span className="bg-linear-to-r from-[#1E3A8A] to-[#2563EB] text-white text-[10px] md:text-xs font-bold px-3 py-1 md:px-4 md:py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+                Featured Residence
               </span>
-              <button onClick={() => setShowInfo(false)} className="text-gray-400 hover:text-red-500">
-                <X size={18} />
+              {/* Close Button: Crucial for mobile users to see full image */}
+              <button 
+                onClick={() => setShowInfo(false)} 
+                className="text-gray-500 hover:text-[#1E3A8A] bg-gray-100/50 p-1.5 rounded-full md:bg-transparent md:p-0"
+              >
+                <X size={20} className="md:w-6 md:h-6" />
               </button>
             </div>
 
-            <h3 className="font-playfair text-2xl text-[#1E3A8A] mb-1">
+            {/* Content */}
+            <h3 className="font-serif text-2xl md:text-3xl text-[#1E3A8A] mb-2 md:mb-3 leading-tight">
               {activeApartment.name}
             </h3>
             
-            {/* --- FIX START: CLICKABLE ADDRESS RESTORED --- */}
             <a 
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeApartment.location)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center text-gray-500 text-sm mb-3 hover:text-[#1E3A8A] hover:underline transition-colors w-fit group-addr"
+              className="flex items-center text-gray-500 text-xs md:text-sm mb-4 md:mb-6 hover:text-[#1E3A8A] transition-colors w-fit font-medium shrink-0"
             >
-              <MapPin size={14} className="mr-1 group-addr-hover:text-[#1E3A8A]" />
+              <MapPin size={14} className="mr-1.5 text-[#2563EB] md:w-4 md:h-4" />
               {activeApartment.location}
             </a>
-            {/* --- FIX END --- */}
 
-            <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6 font-light">
               {activeApartment.description}
             </p>
 
-            <div className="flex items-center justify-between mt-2">
-              <span className="text-xl font-bold text-[#1E3A8A]">{activeApartment.price}</span>
-              
-              <a href="/request" className="flex items-center gap-2 text-sm font-semibold text-[#1E3A8A] hover:underline">
-                Book Now <ArrowRight size={16} />
+            {/* Pricing Box */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-4 md:p-5 mb-6 md:mb-8 border border-blue-100/50 shadow-sm shrink-0">
+               {activeApartment.options.map((opt, index) => (
+                 <div key={index} className="flex justify-between items-end py-2 md:py-3 border-b border-blue-100 last:border-0 last:pb-0 first:pt-0">
+                    <span className="text-gray-700 text-sm md:text-base font-medium">{opt.label}</span>
+                    <div className="text-right">
+                      <span className="block font-bold text-[#1E3A8A] text-xl md:text-2xl leading-none">
+                        {opt.price}
+                      </span>
+                      <span className="text-[10px] md:text-xs font-medium text-gray-400">/night</span>
+                    </div>
+                 </div>
+               ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex md:justify-start justify-center shrink-0 pb-2 md:pb-0">
+              <a href="/request" className="flex items-center justify-center gap-2 md:gap-3 text-white bg-[#1E3A8A] w-full md:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl hover:bg-[#2563EB] transition-all shadow-lg hover:shadow-xl font-medium text-base md:text-lg active:scale-95">
+                Book This Apartment <ArrowRight size={18} className="md:w-5 md:h-5"/>
               </a>
             </div>
           </div>
           
+          {/* Info Toggle Button (Visible when card is closed) */}
           {!showInfo && (
             <button 
               onClick={() => setShowInfo(true)}
-              className="absolute bottom-8 left-8 bg-white text-[#1E3A8A] p-3 rounded-full shadow-lg hover:bg-[#E0F2FE] transition"
+              className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/90 text-[#1E3A8A] p-3 md:p-4 rounded-full shadow-lg hover:bg-white transition-all z-30 animate-bounce md:animate-none"
             >
-              <Info size={24} />
+              <Info size={24} className="md:w-7 md:h-7" />
             </button>
           )}
         </div>
 
-        <div className="mt-8 overflow-x-auto pb-4 scrollbar-hide">
-          <div className="flex gap-4 md:gap-6 md:justify-center min-w-max px-2">
+        {/* THUMBNAILS BOTTOM - Horizontal scroll on mobile */}
+        <div className="mt-8 md:mt-12 overflow-x-auto pb-4 scrollbar-hide">
+          <div className="flex gap-4 md:gap-6 md:justify-center min-w-max px-2 md:px-4">
             {apartments.map((apt) => (
               <button
                 key={apt.id}
                 onClick={() => {
                   setActiveId(apt.id);
                   setShowInfo(true);
+                  setCurrentImageIndex(0); 
                 }}
                 className={`
-                  relative w-[140px] h-[100px] md:w-[200px] md:h-[140px] rounded-xl overflow-hidden cursor-pointer
-                  transition-all duration-300 transform hover:-translate-y-1
+                  relative w-[130px] h-[90px] md:w-[220px] md:h-[150px] rounded-xl md:rounded-2xl overflow-hidden cursor-pointer
+                  transition-all duration-300 transform active:scale-95
                   ${activeId === apt.id 
-                    ? "ring-4 ring-[#1E3A8A] shadow-xl scale-105" 
-                    : "opacity-70 hover:opacity-100 grayscale hover:grayscale-0"}
+                    ? "ring-2 md:ring-[3px] ring-[#1E3A8A] shadow-xl scale-105" 
+                    : "opacity-80 hover:opacity-100 grayscale hover:grayscale-0"}
                 `}
               >
                 <img 
-                  src={apt.image} 
+                  src={apt.images[0]} 
                   alt={apt.name} 
                   className="w-full h-full object-cover"
                 />
                 {activeId === apt.id && (
-                  <div className="absolute inset-0 bg-[#1E3A8A]/10 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A8A]/40 to-transparent mix-blend-overlay" />
                 )}
               </button>
             ))}
