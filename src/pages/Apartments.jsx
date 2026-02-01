@@ -5,7 +5,6 @@ import { MapPin, ArrowRight, X, Info, ChevronLeft, ChevronRight } from "lucide-r
 import apt1Main from "../media/living.jpg";
 import bedroomImg from "../media/room2.png";
 import diningImg from "../media/dine.jpg";
-// Add other imports here...
 
 export default function Apartments() {
   
@@ -47,10 +46,10 @@ export default function Apartments() {
   // ---------------------------
 
   return (
-    <section className="w-full bg-linear-to-b from-[#F0F9FF] to-white pt-16 md:pt-20 pb-20 md:pb-32" id="apartments">
+    <section className="w-full bg-gradient-to-b from-[#F0F9FF] to-white pt-16 md:pt-20 pb-20 md:pb-32" id="apartments">
       
       <div className="max-w-5xl mx-auto text-center mb-8 md:mb-16 px-4">
-        <h2 className="font-allura text-3xl md:text-[56px] leading-tight text-[#1E3A8A] mb-4 md:mb-6">
+        <h2 className="font-serif text-3xl md:text-[56px] leading-tight text-[#1E3A8A] mb-4 md:mb-6">
           Explore Our Collections
         </h2>
         <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-light">
@@ -61,37 +60,46 @@ export default function Apartments() {
       <div className="max-w-[1400px] mx-auto px-4">
         
         {/* MAIN DISPLAY AREA */}
-        <div className="relative group w-full h-[500px] md:h-[700px] rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl md:shadow-2xl bg-gray-100 border border-white/50">
+        <div className="relative group w-full h-[300px] md:h-[700px] rounded-2xl md:rounded-[2rem] overflow-hidden shadow-xl md:shadow-2xl bg-gray-900 border border-white/50">
           
-          {/* The Active Image */}
-          <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none mix-blend-overlay"></div>
+          {/* LAYER 1: The Blurred Background (MOBILE ONLY via md:hidden) */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center blur-xl scale-110 opacity-60 transition-all duration-1000 md:hidden"
+            style={{ backgroundImage: `url(${activeApartment.images[currentImageIndex]})` }}
+          ></div>
+
+          {/* LAYER 2: The Main Image */}
+          {/* Mobile: object-contain (fits width). Desktop: object-cover (zooms to fill) */}
           <img
             src={activeApartment.images[currentImageIndex]}
             alt={`${activeApartment.name} view ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover object-center transition-transform duration-1000 ease-in-out"
+            className="relative w-full h-full object-contain md:object-cover z-10 transition-transform duration-1000 ease-in-out"
             onClick={() => setShowInfo(!showInfo)}
           />
+
+          {/* LAYER 3: Subtle Dark Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 z-10 pointer-events-none" />
 
           {/* --- CAROUSEL CONTROLS --- */}
           {activeApartment.images.length > 1 && (
             <>
-              {/* Arrows - Positioned slightly higher on mobile to avoid overlap with card */}
+              {/* Arrows */}
               <button 
                 onClick={prevImage}
-                className="absolute top-[40%] md:top-1/2 left-4 md:left-6 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/30 active:scale-95"
+                className="absolute top-[40%] md:top-1/2 left-4 md:left-6 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/20 active:scale-95"
               >
                 <ChevronLeft size={24} className="md:w-7 md:h-7" />
               </button>
               
               <button 
                 onClick={nextImage}
-                className="absolute top-[40%] md:top-1/2 right-4 md:right-6 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/30 active:scale-95"
+                className="absolute top-[40%] md:top-1/2 right-4 md:right-6 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all z-20 border border-white/20 active:scale-95"
               >
                 <ChevronRight size={24} className="md:w-7 md:h-7" />
               </button>
 
-              {/* Dots - Hidden on mobile if info card is open to save space, visible on desktop */}
-              <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3 z-20 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20 transition-opacity duration-300 ${showInfo ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}>
+              {/* Dots */}
+              <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3 z-20 bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 transition-opacity duration-300 ${showInfo ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}>
                 {activeApartment.images.map((_, index) => (
                   <div 
                     key={index}
@@ -102,14 +110,12 @@ export default function Apartments() {
             </>
           )}
 
-
-          {/* --- INFO OVERLAY CARD (Bottom Sheet Style) --- */}
+          {/* --- INFO OVERLAY CARD --- */}
           <div 
             className={`
               absolute bottom-0 left-0 right-0 
               md:top-0 md:bottom-0 md:left-auto md:right-0 md:w-[480px] md:h-auto
               
-              /* Mobile Specific: Max height 60% so user sees image top. Scrollable. */
               max-h-[60%] md:max-h-none overflow-y-auto md:overflow-visible
               
               bg-white/90 md:bg-white/80 backdrop-blur-xl 
@@ -123,12 +129,11 @@ export default function Apartments() {
               ${showInfo ? "translate-y-0 md:translate-x-0 opacity-100" : "translate-y-full md:translate-y-0 md:translate-x-full opacity-0 pointer-events-none"}
             `}
           >
-            {/* Header: Featured Badge & Close Button */}
+            {/* Header */}
             <div className="flex justify-between items-center mb-4 md:mb-6 shrink-0">
-              <span className="bg-linear-to-r from-[#1E3A8A] to-[#2563EB] text-white text-[10px] md:text-xs font-bold px-3 py-1 md:px-4 md:py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+              <span className="bg-gradient-to-r from-[#1E3A8A] to-[#2563EB] text-white text-[10px] md:text-xs font-bold px-3 py-1 md:px-4 md:py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                 Featured Residence
               </span>
-              {/* Close Button: Crucial for mobile users to see full image */}
               <button 
                 onClick={() => setShowInfo(false)} 
                 className="text-gray-500 hover:text-[#1E3A8A] bg-gray-100/50 p-1.5 rounded-full md:bg-transparent md:p-0"
@@ -156,7 +161,7 @@ export default function Apartments() {
               {activeApartment.description}
             </p>
 
-            {/* Pricing Box */}
+            {/* Pricing */}
             <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-4 md:p-5 mb-6 md:mb-8 border border-blue-100/50 shadow-sm shrink-0">
                {activeApartment.options.map((opt, index) => (
                  <div key={index} className="flex justify-between items-end py-2 md:py-3 border-b border-blue-100 last:border-0 last:pb-0 first:pt-0">
@@ -171,7 +176,7 @@ export default function Apartments() {
                ))}
             </div>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <div className="flex md:justify-start justify-center shrink-0 pb-2 md:pb-0">
               <a href="/request" className="flex items-center justify-center gap-2 md:gap-3 text-white bg-[#1E3A8A] w-full md:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl hover:bg-[#2563EB] transition-all shadow-lg hover:shadow-xl font-medium text-base md:text-lg active:scale-95">
                 Book This Apartment <ArrowRight size={18} className="md:w-5 md:h-5"/>
@@ -179,7 +184,7 @@ export default function Apartments() {
             </div>
           </div>
           
-          {/* Info Toggle Button (Visible when card is closed) */}
+          {/* Info Toggle */}
           {!showInfo && (
             <button 
               onClick={() => setShowInfo(true)}
@@ -190,7 +195,7 @@ export default function Apartments() {
           )}
         </div>
 
-        {/* THUMBNAILS BOTTOM - Horizontal scroll on mobile */}
+        {/* THUMBNAILS BOTTOM */}
         <div className="mt-8 md:mt-12 overflow-x-auto pb-4 scrollbar-hide">
           <div className="flex gap-4 md:gap-6 md:justify-center min-w-max px-2 md:px-4">
             {apartments.map((apt) => (
