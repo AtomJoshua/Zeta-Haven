@@ -55,6 +55,9 @@ export default function Apartments() {
         <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-light">
           Discover your perfect stay. Swipe or click arrows to view more photos.
         </p>
+        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-light">
+          Tap the image to view full image.
+        </p>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4">
@@ -188,8 +191,9 @@ export default function Apartments() {
           {!showInfo && (
             <button 
               onClick={() => setShowInfo(true)}
-              className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/90 text-[#1E3A8A] p-3 md:p-4 rounded-full shadow-lg hover:bg-white transition-all z-30 animate-bounce md:animate-none"
+              className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/90 text-[#1E3A8A] px-4 py-3 md:p-4 rounded-full shadow-lg hover:bg-white transition-all z-30 animate-bounce md:animate-none flex items-center gap-2"
             >
+              <span className="text-sm font-bold md:hidden">Click here for details</span>
               <Info size={24} className="md:w-7 md:h-7" />
             </button>
           )}
